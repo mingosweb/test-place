@@ -11,6 +11,13 @@
     <form action="">
         <input type="text" id='place'>
     </form>
+    <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+    <script type="text/javascript">
+    //<![CDATA[
+
+      gapi.load('auth', init);
+    //]]>
+    </script>
     <script>
         $(window).ready(function(){
             gapi.client.setApiKey("AIzaSyDa18XCLIQTfZ2SvblrWPbgf9jgZvuFaOk");
