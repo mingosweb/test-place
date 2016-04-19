@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>autocmplete</title>
     <script src="http://maps.google.com/maps/api/js?libraries=places"></script>
+    <script src="https://apis.google.com/js/client.js?onload=OnLoadCallback"></script>
     <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
 </head>
 <body>
@@ -12,6 +13,7 @@
     </form>
     <script>
         $(window).ready(function(){
+            gapi.client.setApiKey("AIzaSyDa18XCLIQTfZ2SvblrWPbgf9jgZvuFaOk");
             console.log("hola");
             var autoComplete = new google.maps.places.Autocomplete(   
                 document.getElementById('place'), {
@@ -30,16 +32,14 @@
             $("input#place").on("blur",function(){
                 setTimeout(function(){
                     var ciudad = $("input#place").val();
-                    $.ajax({
-                        type:'get',
-                        dataType: 'html',
-                        url: 'https://maps.googleapis.com/maps/api/place/textsearch/json?query='+ciudad+'&key=AIzaSyDa18XCLIQTfZ2SvblrWPbgf9jgZvuFaOk',
-                        success: function(data){
-                            alert("bien: "+data);
-                        },
-                        error: function(err){
-                            alert("error");
-                        }
+                    var restRequest = gapi.client.request({
+                      'path': 'https://maps.googleapis.com/maps/api/place/textsearch/json',
+                      'params': {'query': ciudad }
+                    });
+                    restRequest.then(function(resp) {
+                      console.log(resp.result);
+                    }, function(reason) {
+                      console.log('Error: ' + reason.result.error.message);
                     });
                 },1000);
             });
