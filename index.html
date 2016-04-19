@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>autocmplete</title>
     <script src="http://maps.google.com/maps/api/js?libraries=places"></script>
+    <script src="https://apis.google.com/js/auth.js?onload=init"></script>
     <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
 </head>
 <body>
@@ -30,24 +31,14 @@
             $("input#place").on("blur",function(){
                 setTimeout(function(){
                     var ciudad = $("input#place").val();
-                    $.ajax({
-                        xhrFields: {
-                            withCredentials: true
-                        },
-                        headers: {
-                          "Access-Control-Allow-Headers": "x-requested-with" ,
-                          "Access-Control-Allow-Credentials" : true
-                        },
-                        type:'get',
-                        dataType: 'html',
-                        url: 'https://maps.googleapis.com/maps/api/place/textsearch/json?query='+ciudad+'&key=AIzaSyDa18XCLIQTfZ2SvblrWPbgf9jgZvuFaOk',
-                        success: function(data){
-                            alert("bien: "+data);
-                        },
-                        error: function(err){
-                            alert("error");
-                        }
-                    });
+                    var xhr = new XMLHttpRequest();
+                    var oauthToken = gapi.auth.getToken();
+                    url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query="+ciudad+"&key=AIzaSyDa18XCLIQTfZ2SvblrWPbgf9jgZvuFaOk";
+                    xhr.open('GET',
+                      url);
+                    xhr.setRequestHeader('Authorization',
+                      'Bearer ' + oauthToken.access_token);
+                    xhr.send();
                 },1000);
             });
         }); 
