@@ -43,6 +43,9 @@
                         // Otherwise, CORS is not supported by the browser.
                         xhr = null;
                       }
+                    
+                       xhr.setRequestHeader("Access-Control-Allow-Credentials",true);
+                        xhr.setRequestHeader("Access-Control-Allow-Origin","*");
                       return xhr;
                     }
                     
