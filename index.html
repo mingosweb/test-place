@@ -33,7 +33,7 @@
                     $.ajax({
                         type:'get',
                         dataType: 'html',
-                        ulr: 'https://maps.googleapis.com/maps/api/place/textsearch/json?query='+ciudad+'&key=AIzaSyDa18XCLIQTfZ2SvblrWPbgf9jgZvuFaOk',
+                        url: 'https://maps.googleapis.com/maps/api/place/textsearch/json?query='+ciudad+'&key=AIzaSyDa18XCLIQTfZ2SvblrWPbgf9jgZvuFaOk',
                         success: function(data){
                             alert("bien: "+data);
                         },
