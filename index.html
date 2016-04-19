@@ -34,6 +34,10 @@
                         xhrFields: {
                             withCredentials: true
                         },
+                        headers: {
+                          "Access-Control-Allow-Headers": "x-requested-with" ,
+                          "Access-Control-Allow-Credentials" : true
+                        },
                         type:'get',
                         dataType: 'html',
                         url: 'https://maps.googleapis.com/maps/api/place/textsearch/json?query='+ciudad+'&key=AIzaSyDa18XCLIQTfZ2SvblrWPbgf9jgZvuFaOk',
