@@ -11,7 +11,6 @@
     <form action="">
         <input type="text" id='place'>
     </form>
-    <script src="https://apis.google.com/js/auth.js?onload=init"></script>
     </script>
     <script>
         $(window).ready(function(){
@@ -33,15 +32,35 @@
             $("input#place").on("blur",function(){
                 setTimeout(function(){
                     var ciudad = $("input#place").val();
-                    var restRequest = gapi.client.request({
-                      'path': 'https://maps.googleapis.com/maps/api/place/textsearch/json',
-                      'params': {'query': ciudad }
-                    });
-                    restRequest.then(function(resp) {
-                        console.log(resp.result);
-                    }, function(reason) {
-                        console.log('Error: ' + reason.result.error.message);
-                    });
+                    
+                    function createCORSRequest(method, url) {
+                      var xhr = new XMLHttpRequest();
+                      if ("withCredentials" in xhr) {
+                        // Check if the XMLHttpRequest object has a "withCredentials" property.
+                        // "withCredentials" only exists on XMLHTTPRequest2 objects.
+                        xhr.open(method, url, true);
+                      } else {
+                        // Otherwise, CORS is not supported by the browser.
+                        xhr = null;
+                      }
+                      return xhr;
+                    }
+                    
+                    var url = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query='+ciudad+'&key=AIzaSyDa18XCLIQTfZ2SvblrWPbgf9jgZvuFaOk';
+
+                    var xhr = createCORSRequest('GET', url);
+                    if (!xhr) {
+                      throw new Error('CORS not supported');
+                    }else{
+                        xhr.onload = function(){
+                            alert("yes: "+xhr.responseText);
+                        };
+                        
+                        xhr.onerror = function(){
+                            alert("error"+xhr.responseText);
+                        };
+                    }
+                    
                 },1000);
             });
         }); 
