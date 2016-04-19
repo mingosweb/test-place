@@ -26,6 +26,13 @@
                  map.setZoom(15);
               } 
             });
+            
+            $("input#place").on("blur",function(){
+                var ciudad = $("input#ciudad").val();
+                setTimeout(function(){
+                    alert("ciudad seleccionada: "+ciudad);
+                }500);
+            });
         }); 
     </script>
 </body>
