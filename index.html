@@ -12,21 +12,21 @@
     </form>
     <script>
         $(window).ready(function(){
-            alert("hola");
-        }); 
-/*var autoComplete = new google.maps.places.Autocomplete(   
-            document.getElementById('place'), {
-            types: ['(cities)']
-        });
+            console.log("hola");
+            var autoComplete = new google.maps.places.Autocomplete(   
+                document.getElementById('place'), {
+                types: ['(cities)']
+            });
 
-        google.maps.event.addListener(autoComplete, 'place_changed', function() {
-          var place = autocomplete.getPlace();
-          if (place.geometry) {
-             console.log(map);
-             map.panTo(place.geometry.location);
-             map.setZoom(15);
-          } 
-        });*/
+            google.maps.event.addListener(autoComplete, 'place_changed', function() {
+              var place = autocomplete.getPlace();
+              if (place.geometry) {
+                 console.log(map);
+                 map.panTo(place.geometry.location);
+                 map.setZoom(15);
+              } 
+            });
+        }); 
     </script>
 </body>
 </html>
