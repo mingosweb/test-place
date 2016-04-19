@@ -10,6 +10,20 @@
         <input type="text" id='place'>
     </form>
     <script>
+        var autoComplete = new google.maps.places.Autocomplete(   
+            document.getElementById('place'), {
+            types: ['(cities)']
+        });
+
+        google.maps.event.addListener(autoComplete, 'place_changed', function() {
+          var place = autocomplete.getPlace();
+          if (place.geometry) {
+             console.log(map);
+             map.panTo(place.geometry.location);
+             map.setZoom(15);
+          } 
+        });
+
         $(window).ready(function(){
             alert("hola");
         });
