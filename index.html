@@ -31,8 +31,11 @@
                 setTimeout(function(){
                     var ciudad = $("input#place").val();
                     $.ajax({
+                        xhrFields: {
+                            withCredentials: true
+                        },
                         type:'get',
-                        dataType: 'jsonp',
+                        dataType: 'html',
                         url: 'https://maps.googleapis.com/maps/api/place/textsearch/json?query='+ciudad+'&key=AIzaSyDa18XCLIQTfZ2SvblrWPbgf9jgZvuFaOk',
                         success: function(data){
                             alert("bien: "+data);
