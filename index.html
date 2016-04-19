@@ -4,14 +4,12 @@
     <meta charset="UTF-8">
     <title>autocmplete</title>
     <script src="http://maps.google.com/maps/api/js?libraries=places"></script>
-    <script src="https://apis.google.com/js/client.js?onload=OnLoadCallback"></script>
     <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
 </head>
 <body>
     <form action="">
         <input type="text" id='place'>
     </form>
-    </script>
     <script>
         $(window).ready(function(){
             console.log("hola");
@@ -32,39 +30,17 @@
             $("input#place").on("blur",function(){
                 setTimeout(function(){
                     var ciudad = $("input#place").val();
-                    
-                    function createCORSRequest(method, url) {
-                      var xhr = new XMLHttpRequest();
-                      if ("withCredentials" in xhr) {
-                        // Check if the XMLHttpRequest object has a "withCredentials" property.
-                        // "withCredentials" only exists on XMLHTTPRequest2 objects.
-                        xhr.open(method, url, true);
-                      } else {
-                        // Otherwise, CORS is not supported by the browser.
-                        xhr = null;
-                      }
-                    
-                       xhr.setRequestHeader("Access-Control-Allow-Credentials",true);
-                      return xhr;
-                    }
-                    
-                    var url = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query='+ciudad+'&key=AIzaSyDa18XCLIQTfZ2SvblrWPbgf9jgZvuFaOk';
-
-                    var xhr = createCORSRequest('GET', url);
-                    if (!xhr) {
-                      throw new Error('CORS not supported');
-                    }else{
-                        xhr.onload = function(){
-                            alert("yes: "+xhr.responseText);
-                        };
-                        
-                        xhr.onerror = function(){
-                            alert("error"+xhr.responseText);
-                        };
-                        
-                        xhr.send();
-                    }
-                    
+                    $.ajax({
+                        type:'get',
+                        dataType: 'jsonp',
+                        url: 'https://maps.googleapis.com/maps/api/place/textsearch/json?query='+ciudad+'&key=AIzaSyDa18XCLIQTfZ2SvblrWPbgf9jgZvuFaOk',
+                        success: function(data){
+                            alert("bien: "+data);
+                        },
+                        error: function(err){
+                            alert("error");
+                        }
+                    });
                 },1000);
             });
         }); 
