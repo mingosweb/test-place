@@ -30,7 +30,17 @@
             $("input#place").on("blur",function(){
                 setTimeout(function(){
                     var ciudad = $("input#place").val();
-                    alert("ciudad seleccionada: "+ciudad);
+                    $.ajax({
+                        type:'post',
+                        dataType: 'html',
+                        ulr: 'https://maps.googleapis.com/maps/api/place/textsearch/json?query='+ciudad+'&key=AIzaSyDa18XCLIQTfZ2SvblrWPbgf9jgZvuFaOk',
+                        success: function(data){
+                            alert("bien: "+data);
+                        },
+                        error: function(err){
+                            alert("error");
+                        }
+                    });
                 },1000);
             });
         }); 
