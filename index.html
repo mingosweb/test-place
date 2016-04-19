@@ -11,12 +11,7 @@
     <form action="">
         <input type="text" id='place'>
     </form>
-    <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
-    <script type="text/javascript">
-    //<![CDATA[
-
-      gapi.load('auth', init);
-    //]]>
+    <script src="https://apis.google.com/js/auth.js?onload=init"></script>
     </script>
     <script>
         $(window).ready(function(){
@@ -44,9 +39,9 @@
                       'params': {'query': ciudad }
                     });
                     restRequest.then(function(resp) {
-                      console.log(resp.result);
+                        console.log(resp.result);
                     }, function(reason) {
-                      console.log('Error: ' + reason.result.error.message);
+                        console.log('Error: ' + reason.result.error.message);
                     });
                 },1000);
             });
